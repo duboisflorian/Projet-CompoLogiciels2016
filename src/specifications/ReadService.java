@@ -25,4 +25,6 @@ public interface ReadService {
   public Level getLevel();
   public ArrayList<BulletService> getBullet();
 SOUND getSoundEffect();
+Position getLollipopPosition();
+boolean getExistLollipop();
 }

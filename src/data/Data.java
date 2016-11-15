@@ -27,6 +27,7 @@ public class Data implements DataService{
   private ArrayList<BulletService> bullet;
   private Level level;
   private Sound.SOUND sound;
+  private Lollipop lollipop;
   public Data(){}
 
   @Override
@@ -38,6 +39,7 @@ public class Data implements DataService{
     bullet = new ArrayList<BulletService>();
     level=new Level(1,10,100,2);
     sound = Sound.SOUND.None;
+    lollipop=new Lollipop();
   }
 
   @Override
@@ -123,4 +125,24 @@ public class Data implements DataService{
 	  public void updateLevel(){ 
 		  level.update();
 	  }
+	  
+	  @Override
+	public Position getLollipopPosition() {
+		return lollipop.getP();
+	}
+	  
+	  @Override
+	public void setLollipopPosition(Position p) {
+		lollipop.setP(p);
+	}
+	  
+	  @Override
+	public boolean getExistLollipop() {
+		return lollipop.isExist();
+	}
+	  
+	  @Override
+	public void setExistLollipop(boolean b) {
+		lollipop.setExist(b);
+	}
 }
