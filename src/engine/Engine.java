@@ -81,7 +81,7 @@ public class Engine implements EngineService, RequireDataService{
   			Platform.exit();
   		
   		}
-    	  
+    	 
   		int ii=gen.nextInt(100);
         if (ii<=data.getLevel().invoc && data.getLevel().nbpop<data.getLevel().nbEnemy) {
         	data.setLevelnbpop( data.getLevel().nbpop+1);
@@ -94,6 +94,7 @@ public class Engine implements EngineService, RequireDataService{
     	  
         ArrayList<EnemyService> ballon = new ArrayList<EnemyService>();
         ArrayList<BulletService> bullet = new ArrayList<BulletService>();
+        ArrayList<Position> lollipop = new ArrayList<Position>();
         
         data.setSoundEffect(Sound.SOUND.None);
         
@@ -114,6 +115,10 @@ public class Engine implements EngineService, RequireDataService{
                       data.setLevelnbkill( data.getLevel().nbkill+1);
                       data.setSoundEffect(Sound.SOUND.EnemyDestroyed);
             	  data.setChildScore(data.getChildScore()+1);
+              	if(data.getChildScore()%50==0) 
+            	{
+            		spawnlollipop(b);
+            	}
               }
               }
             }
@@ -125,9 +130,20 @@ public class Engine implements EngineService, RequireDataService{
             	  if (b.getBulletPosition().y>0) bullet.add(b);
               }
             }
+        
+        for (Position p:data.getLollipop()){
+        	moveLollipop(p);
+            if (collisionChildLollipop(p)){
+            	if(data.getChildHealth()<HardCodedParameters.MaxHealth)
+            		data.setChildHealth(data.getChildHealth()+1);
+              } else {
+            	  lollipop.add(p);
+              }
+            }
 
         data.setEnemy(ballon);
         data.setBullet(bullet);
+        data.setLollipop(lollipop);
         data.setStepNumber(data.getStepNumber()+1);
       }
 
@@ -174,6 +190,12 @@ public class Engine implements EngineService, RequireDataService{
 	    int x=(int) data.getChildPosition().x-10;
 	    int y=(int)data.getChildPosition().y-(HardCodedParameters.ChildHeight/2)-25;
 	    data.addBullet(new Position(x,y));
+	}
+	
+	private void spawnlollipop(EnemyService b) {
+	    int x=(int) b.getPosition().x;
+	    int y=(int)b.getPosition().y;
+	    data.addLollipop(new Position(x,y));
 	}
   
   @Override
@@ -234,6 +256,11 @@ public class Engine implements EngineService, RequireDataService{
 		
 	  }
   
+  private void moveLollipop(Position p){
+	  if(p.y<data.getField().ymax)
+		p.y=p.y+HardCodedParameters.lollipopStep;
+	  }
+  
   private boolean collisionChildEnemy(EnemyService e){
 	  Rectangle rect1 = new Rectangle((int)data.getChildPosition().x - 75,(int) data.getChildPosition().y - 100, 75, 100);
 	  Rectangle rect2 = new Rectangle((int)e.getPosition().x - 20,(int) e.getPosition().y - 20, 20, 20);
@@ -243,6 +270,21 @@ public class Engine implements EngineService, RequireDataService{
 	     rect1.getX() + rect1.getWidth() > rect2.getX() &&
 	     rect1.getY() < rect2.getY() + rect2.getHeight() &&
 	     rect1.getHeight() + rect1.getY() > rect2.getY()) {
+	      return true;
+	  }else{
+		  return false;
+	  }
+  }
+  
+  private boolean collisionChildLollipop(Position p){
+	  Rectangle rect1 = new Rectangle((int)data.getChildPosition().x - 75,(int) data.getChildPosition().y - 100, 75, 100);
+	  Rectangle rect2 = new Rectangle((int)p.x - 20,(int) p.y - 20, 20, 20);
+
+
+	  if (rect1.getX() < rect2.getX() + rect2.getWidth() &&
+	     rect1.getX() + rect1.getWidth() > rect2.getX() &&
+	     rect1.getY() < rect2.getY() + rect2.getHeight() &&
+	     rect1.getHeight() + rect1.getY() > rect2.getY() && data.getChildHealth()<HardCodedParameters.MaxHealth) {
 	      return true;
 	  }else{
 		  return false;

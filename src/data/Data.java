@@ -27,7 +27,7 @@ public class Data implements DataService{
   private ArrayList<BulletService> bullet;
   private Level level;
   private Sound.SOUND sound;
-  private Lollipop lollipop;
+  private ArrayList<Position> lollipop;
   public Data(){}
 
   @Override
@@ -38,8 +38,8 @@ public class Data implements DataService{
     ballon = new ArrayList<EnemyService>();
     bullet = new ArrayList<BulletService>();
     level=new Level(1,10,100,2);
-    sound = Sound.SOUND.None;
-    lollipop=new Lollipop();
+    sound = Sound.SOUND.None;;
+    lollipop = new ArrayList<Position>();
   }
 
   @Override
@@ -107,13 +107,22 @@ public class Data implements DataService{
 	  public ArrayList<BulletService> getBullet(){ return bullet; }
 	  
 	  @Override
+	  public ArrayList<Position> getLollipop(){ return lollipop; }
+	  
+	  @Override
 	  public void addEnemy(Position p) { ballon.add(new MoveEnemy(p,level.healthEnemy)); }
 	  
 	  @Override
 	  public void addBullet(Position p) { bullet.add(new Bullet(p)); }
 	  
 	  @Override
+	  public void addLollipop(Position p) { lollipop.add(p); }
+	  
+	  @Override
 	  public void setEnemy(ArrayList<EnemyService> enemy) { this.ballon=enemy; }
+	  
+	  @Override
+	  public void setLollipop(ArrayList<Position> l) { this.lollipop=l; }
 	  
 	  @Override
 	  public void setBullet(ArrayList<BulletService> bu) { this.bullet=bu; }
@@ -125,24 +134,5 @@ public class Data implements DataService{
 	  public void updateLevel(){ 
 		  level.update();
 	  }
-	  
-	  @Override
-	public Position getLollipopPosition() {
-		return lollipop.getP();
-	}
-	  
-	  @Override
-	public void setLollipopPosition(Position p) {
-		lollipop.setP(p);
-	}
-	  
-	  @Override
-	public boolean getExistLollipop() {
-		return lollipop.isExist();
-	}
-	  
-	  @Override
-	public void setExistLollipop(boolean b) {
-		lollipop.setExist(b);
-	}
+
 }

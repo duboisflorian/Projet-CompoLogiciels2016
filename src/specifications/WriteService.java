@@ -25,6 +25,6 @@ void setBullet(ArrayList<BulletService> bu);
 void setLevelnbpop(int i);
 void setLevelnbkill(int i);
 void setSoundEffect(SOUND s);
-void setLollipopPosition(Position p);
-void setExistLollipop(boolean b);
+void addLollipop(Position p);
+void setLollipop(ArrayList<Position> l);
 }

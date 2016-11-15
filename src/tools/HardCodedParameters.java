@@ -14,6 +14,7 @@ public class HardCodedParameters {
                           MaxHealth=5, MinHealth=0,
                           enemyWidth = 90, enemyHeight = 150, enemyStep = 10,
                           bulletWidth =50, bulletHeight = 30, bulletStep = 20,
+                          lollipopWidth =100, lollipopHeight = 100, lollipopStep = 20,
                           healthWidth = 50, healthHeight=50;
   public static final int enginePaceMillis = 100,
 		  				bulletPaceMillis = 407,

@@ -7,7 +7,7 @@
 package userInterface;
 
 import tools.HardCodedParameters;
-
+import tools.Position;
 import specifications.ViewerService;
 import specifications.BulletService;
 import specifications.EnemyService;
@@ -167,6 +167,20 @@ public class Viewer implements ViewerService, RequireReadService{
         health.setTranslateX(-0.1*shrink*defaultMainHeight+(.999 - i)*shrink*defaultMainWidth);
         health.setTranslateY(-0.09*shrink*defaultMainWidth+shrink*defaultMainHeight);
         panel.getChildren().add(health);
+      }
+    
+    ArrayList<Position> lollipop = data.getLollipop();
+    Position p;
+    
+    for (int i=0; i<lollipop.size();i++){
+    	p=lollipop.get(i);
+        Rectangle lolli = new Rectangle(HardCodedParameters.lollipopWidth*shrink,
+        		HardCodedParameters.lollipopHeight*shrink);
+        lolli.setFill(new ImagePattern(new Image("file:src/images/sucette.png")));
+        
+        lolli.setTranslateX(shrink*p.x);
+        lolli.setTranslateY(shrink*p.y);
+        panel.getChildren().add(lolli);
       }
     
     return panel;
