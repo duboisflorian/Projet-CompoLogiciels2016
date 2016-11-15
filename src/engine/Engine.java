@@ -95,6 +95,8 @@ public class Engine implements EngineService, RequireDataService{
         ArrayList<EnemyService> ballon = new ArrayList<EnemyService>();
         ArrayList<BulletService> bullet = new ArrayList<BulletService>();
         
+        data.setSoundEffect(Sound.SOUND.None);
+        
         updateSpeedChild();
         updateCommandChild();
         updatePositionChild();
@@ -105,6 +107,7 @@ public class Engine implements EngineService, RequireDataService{
                 data.setChildHealth(data.getChildHealth()-1);
                 data.setLevelnbkill( data.getLevel().nbkill+1);
                 data.setChildScore(data.getChildScore()+1);
+                data.setSoundEffect(Sound.SOUND.ChildGotHit);
               } else {
             	  if(b.getHealth()>0)ballon.add(b);
             	  else{
@@ -117,6 +120,7 @@ public class Engine implements EngineService, RequireDataService{
         for (BulletService b:data.getBullet()){
         	Fire(b);
             if (collisionBulletEnemy(b)){
+                data.setSoundEffect(Sound.SOUND.EnemyDestroyed);
               } else {
             	  if (b.getBulletPosition().y>0) bullet.add(b);
               }

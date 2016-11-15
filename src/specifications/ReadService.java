@@ -8,6 +8,7 @@ package specifications;
 
 import tools.Position;
 import tools.Sound;
+import tools.Sound.SOUND;
 
 import java.util.ArrayList;
 
@@ -23,4 +24,5 @@ public interface ReadService {
   public ArrayList<EnemyService> getEnemy();
   public Level getLevel();
   public ArrayList<BulletService> getBullet();
+SOUND getSoundEffect();
 }

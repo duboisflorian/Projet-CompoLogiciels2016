@@ -120,6 +120,17 @@ public class Main extends Application{
     timer = new AnimationTimer() {
         @Override public void handle(long l) {
           scene.setRoot(((Viewer)viewer).getPanel());
+          switch (data.getSoundEffect()){
+          case EnemyDestroyed:
+            new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/waterdrip.mp3")).play();
+            break;
+          case ChildGotHit:
+            new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/test.mp3")).play();
+            break;
+          default:
+        	    
+            break;
+        }
         }
       };
       timer.start();

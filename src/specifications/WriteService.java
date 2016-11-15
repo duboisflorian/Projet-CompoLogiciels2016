@@ -8,6 +8,7 @@ package specifications;
 
 import tools.Position;
 import tools.Sound;
+import tools.Sound.SOUND;
 
 import java.util.ArrayList;
 
@@ -23,4 +24,5 @@ public interface WriteService {
 void setBullet(ArrayList<BulletService> bu);
 void setLevelnbpop(int i);
 void setLevelnbkill(int i);
+void setSoundEffect(SOUND s);
 }

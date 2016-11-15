@@ -8,6 +8,7 @@ package data;
 
 import tools.HardCodedParameters;
 import tools.Position;
+import tools.Sound;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class Data implements DataService{
   private ArrayList<EnemyService> ballon;
   private ArrayList<BulletService> bullet;
   private Level level;
+  private Sound.SOUND sound;
   public Data(){}
 
   @Override
@@ -35,6 +37,7 @@ public class Data implements DataService{
     ballon = new ArrayList<EnemyService>();
     bullet = new ArrayList<BulletService>();
     level=new Level(1,10,100,2);
+    sound = Sound.SOUND.None;
   }
 
   @Override
@@ -45,6 +48,12 @@ public class Data implements DataService{
 
   @Override
   public int getStepNumber(){ return stepNumber; }
+  
+  @Override
+  public Sound.SOUND getSoundEffect() { return sound; }
+  
+  @Override
+  public void setSoundEffect(Sound.SOUND s) { sound=s; }
 
   @Override
   public void setChildPosition(Position p) { child.setPosition(p); }
