@@ -112,6 +112,7 @@ public class Engine implements EngineService, RequireDataService{
             	  if(b.getHealth()>0)ballon.add(b);
             	  else{
                       data.setLevelnbkill( data.getLevel().nbkill+1);
+                      data.setSoundEffect(Sound.SOUND.EnemyDestroyed);
             	  data.setChildScore(data.getChildScore()+1);
               }
               }
@@ -120,7 +121,6 @@ public class Engine implements EngineService, RequireDataService{
         for (BulletService b:data.getBullet()){
         	Fire(b);
             if (collisionBulletEnemy(b)){
-                data.setSoundEffect(Sound.SOUND.EnemyDestroyed);
               } else {
             	  if (b.getBulletPosition().y>0) bullet.add(b);
               }

@@ -33,7 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -67,7 +67,8 @@ public class Main extends Application{
 
   @Override public void start(Stage stage) {
 	  
-	new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/fond.mp3")).play();
+	MediaPlayer m = new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/fond.mp3"));
+	m.play();
     final Scene scene = new Scene(((Viewer)viewer).getPanel());
     
     scene.setFill(Color.CORNFLOWERBLUE);
@@ -122,13 +123,15 @@ public class Main extends Application{
           scene.setRoot(((Viewer)viewer).getPanel());
           switch (data.getSoundEffect()){
           case EnemyDestroyed:
+        	  m.pause();
             new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/waterdrip.mp3")).play();
             break;
           case ChildGotHit:
+        	  m.pause();
             new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/test.mp3")).play();
             break;
           default:
-        	    
+        	    m.play();
             break;
         }
         }
