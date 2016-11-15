@@ -10,13 +10,13 @@ public class HardCodedParameters {
   //---HARD-CODED-PARAMETERS---//
   public static String defaultParamFileName = "in.parameters";
   public static final int defaultWidth = 1200, defaultHeight = 800,
-                          ChildStartX = 400, ChildStartY = 400, ChildWidth=120, ChildHeight=150, ChildStep = 10,
+                          ChildStartX = 400, ChildStartY = 400, ChildWidth=120, ChildHeight=150, ChildStep = 8,
                           MaxHealth=5, MinHealth=0,
                           enemyWidth = 90, enemyHeight = 150, enemyStep = 10,
-                          bulletWidth =50, bulletHeight = 30, bulletStep = 10,
+                          bulletWidth =50, bulletHeight = 30, bulletStep = 20,
                           healthWidth = 50, healthHeight=50;
   public static final int enginePaceMillis = 100,
-		  				bulletPaceMillis = 707,
+		  				bulletPaceMillis = 407,
                           spriteSlowDownRate = 7;
   public static final double friction = 0.50;
   public static final double resolutionShrinkFactor = 0.95,

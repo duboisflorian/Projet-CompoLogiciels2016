@@ -17,7 +17,7 @@ public class Level {
 		// TODO Auto-generated method stub
 		level++;
 		healthEnemy=healthEnemy+25;
-		nbEnemy=nbEnemy+10;
+		nbEnemy=nbEnemy+5;
 		invoc++;
 		nbkill=0;
 		nbpop=0;

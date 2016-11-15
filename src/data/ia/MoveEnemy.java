@@ -33,16 +33,16 @@ public class MoveEnemy implements EnemyService{
 	      
 		  position=p; 
 		  
-		  int Low = -8;
-		  int High = 8;
+		  int Low = -10;
+		  int High = 10;
 		  
 		  c = gen.nextInt(High-Low) + Low;
-		  while(c==0 || c==1 || c==2 || c==-1 || c==-2)
+		  while(c==0 || c==1 || c==2 || c==-1 || c==-2 || c==-3 || c==3 || c==-4 || c==4 )
 			  c = gen.nextInt(High-Low) + Low;
 		  dx=c;
 		  
 		  c = gen.nextInt(High-Low) + Low;
-		  while(c==0 || c==1 || c==2 || c==-1 || c==-2)
+		  while(c==0 || c==1 || c==2 || c==-1 || c==-2 || c==-3 || c==3 || c==-4 || c==4 )
 			  c = gen.nextInt(High-Low) + Low;
 		  dy=c;
 		  

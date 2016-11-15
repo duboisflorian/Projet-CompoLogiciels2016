@@ -34,7 +34,7 @@ public class Data implements DataService{
     field = new Field(HardCodedParameters.ChildWidth/2,HardCodedParameters.defaultWidth-(HardCodedParameters.ChildWidth/2.5),HardCodedParameters.ChildHeight/1.3,HardCodedParameters.defaultHeight-250);
     ballon = new ArrayList<EnemyService>();
     bullet = new ArrayList<BulletService>();
-    level=new Level(1,25,100,2);
+    level=new Level(1,10,100,2);
   }
 
   @Override
