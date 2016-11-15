@@ -124,11 +124,11 @@ public class Main extends Application{
           switch (data.getSoundEffect()){
           case EnemyDestroyed:
         	  m.pause();
-            new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/waterdrip.mp3")).play();
+            new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/ballon.mp3")).play();
             break;
           case ChildGotHit:
         	  m.pause();
-            new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/test.mp3")).play();
+            new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/enfant.mp3")).play();
             break;
           default:
         	    m.play();
