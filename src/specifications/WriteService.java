@@ -27,4 +27,6 @@ void setLevelnbkill(int i);
 void setSoundEffect(SOUND s);
 void addLollipop(Position p);
 void setLollipop(ArrayList<Position> l);
+void setSnail(boolean b, Position p);
+void SnailPick(boolean b);
 }

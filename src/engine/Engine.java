@@ -67,7 +67,12 @@ public class Engine implements EngineService, RequireDataService{
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			spawnBullet();
+			try {
+				spawnBullet();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}  
 		
 	},0,HardCodedParameters.bulletPaceMillis);
@@ -115,7 +120,7 @@ public class Engine implements EngineService, RequireDataService{
                       data.setLevelnbkill( data.getLevel().nbkill+1);
                       data.setSoundEffect(Sound.SOUND.EnemyDestroyed);
             	  data.setChildScore(data.getChildScore()+1);
-              	if(data.getChildScore()%50==0) 
+              	if(data.getChildScore()%5==0) 
             	{
             		spawnlollipop(b);
             	}
@@ -133,19 +138,37 @@ public class Engine implements EngineService, RequireDataService{
         
         for (Position p:data.getLollipop()){
         	moveLollipop(p);
+        	if(data.getSnail().exist==true){
+        		moveSnail();
+        	}
+        		
+        	if(p.y>=data.getField().ymax && data.getSnail().exist==false){
+        		spawnSnail();
+        	}
+        	
             if (collisionChildLollipop(p)){
             	if(data.getChildHealth()<HardCodedParameters.MaxHealth)
             		data.setChildHealth(data.getChildHealth()+1);
-              } else {
+              } 
+            
+            if(data.getSnail().p.y >= data.getField().ymax && collisionSnailLollipop(p)){
+            data.SnailPick(true);	
+            }
+            
+            if(!collisionChildLollipop(p) && !collisionSnailLollipop(p)){
             	  lollipop.add(p);
               }
             }
 
+        if(data.getSnail().exist==true)
+        	moveSnail();
+        
         data.setEnemy(ballon);
         data.setBullet(bullet);
         data.setLollipop(lollipop);
         data.setStepNumber(data.getStepNumber()+1);
       }
+
 
     },0,HardCodedParameters.enginePaceMillis);
   }
@@ -261,6 +284,19 @@ public class Engine implements EngineService, RequireDataService{
 		p.y=p.y+HardCodedParameters.lollipopStep;
 	  }
   
+  private void moveSnail(){
+	  if(data.getSnail().p.x<data.getField().xmax)
+		data.setSnail(true, new Position(data.getSnail().p.x+10,data.getSnail().p.y));
+	  else{
+		  data.setSnail(false, data.getSnail().p);
+		  data.SnailPick(false);	
+	  	}
+	  }
+
+  private void spawnSnail(){
+		data.setSnail(true, new Position(0,data.getField().ymax));
+	  }  
+  
   private boolean collisionChildEnemy(EnemyService e){
 	  Rectangle rect1 = new Rectangle((int)data.getChildPosition().x - 75,(int) data.getChildPosition().y - 100, 75, 100);
 	  Rectangle rect2 = new Rectangle((int)e.getPosition().x - 20,(int) e.getPosition().y - 20, 20, 20);
@@ -290,6 +326,21 @@ public class Engine implements EngineService, RequireDataService{
 		  return false;
 	  }
   }
+  
+	private boolean collisionSnailLollipop(Position po) {
+		  Rectangle rect1 = new Rectangle((int)data.getSnail().p.x - 50,(int) data.getSnail().p.y, 100, 100);
+		  Rectangle rect2 = new Rectangle((int)po.x - 20,(int) po.y - 20, 20, 20);
+
+
+		  if (rect1.getX() < rect2.getX() + rect2.getWidth() &&
+		     rect1.getX() + rect1.getWidth() > rect2.getX() &&
+		     rect1.getY() < rect2.getY() + rect2.getHeight() &&
+		     rect1.getHeight() + rect1.getY() > rect2.getY()) {
+		      return true;
+		  }else{
+			  return false;
+		  }
+	}
   
   private boolean collisionChildEnemys(){
     for (EnemyService e:data.getEnemy()) if (collisionChildEnemy(e)) return true; return false;

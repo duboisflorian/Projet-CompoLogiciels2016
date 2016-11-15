@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import data.Field;
 import data.Level;
+import data.Snail;
 
 public interface ReadService {
   public Position getChildPosition();
@@ -26,4 +27,5 @@ public interface ReadService {
   public ArrayList<BulletService> getBullet();
 SOUND getSoundEffect();
 ArrayList<Position> getLollipop();
+Snail getSnail();
 }

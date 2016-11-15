@@ -28,6 +28,7 @@ public class Data implements DataService{
   private Level level;
   private Sound.SOUND sound;
   private ArrayList<Position> lollipop;
+  private Snail snail;
   public Data(){}
 
   @Override
@@ -40,6 +41,7 @@ public class Data implements DataService{
     level=new Level(1,10,100,2);
     sound = Sound.SOUND.None;;
     lollipop = new ArrayList<Position>();
+    snail=new Snail();
   }
 
   @Override
@@ -47,6 +49,17 @@ public class Data implements DataService{
   
   @Override
   public Field getField(){ return field; }
+  
+  @Override
+  public Snail getSnail(){ return snail; }
+  
+  @Override
+  public void setSnail(boolean b,Position p){  snail.p=p; snail.exist=b; }
+  
+  @Override
+  public void SnailPick(boolean b){
+	  snail.pick=b;
+  }
 
   @Override
   public int getStepNumber(){ return stepNumber; }

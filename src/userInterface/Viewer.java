@@ -183,6 +183,19 @@ public class Viewer implements ViewerService, RequireReadService{
         panel.getChildren().add(lolli);
       }
     
+    if(data.getSnail().exist==true){
+        Rectangle es = new Rectangle(100*shrink,
+        		100*shrink);
+        if(data.getSnail().pick==false)
+        	es.setFill(new ImagePattern(new Image("file:src/images/eSCARGOT.png")));
+        else
+        	es.setFill(new ImagePattern(new Image("file:src/images/EscargotBonbon.png")));
+        
+        es.setTranslateX(shrink*data.getSnail().p.x);
+        es.setTranslateY(shrink*data.getSnail().p.y);
+        panel.getChildren().add(es);
+    }
+    
     return panel;
   }
 
