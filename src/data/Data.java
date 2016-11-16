@@ -165,6 +165,11 @@ public class Data implements DataService{
 	  public void updateLevel(){ 
 		  level.update();
 	  }
+	  
+	  @Override
+	  public void setSnailDirection(int i){ 
+		  snail.snaildirection=i;
+	  }
 
 	@Override
 	public String getHighscore() {

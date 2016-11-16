@@ -38,7 +38,6 @@ public class Engine implements EngineService, RequireDataService{
   private Random gen;
   private boolean moveLeft,moveRight,moveUp,moveDown;
   private double ChildVX,ChildVY;
-  private int snaildirection;
   public Engine(){}
 
   @Override
@@ -51,7 +50,6 @@ public class Engine implements EngineService, RequireDataService{
     engineClock = new Timer();
     bulletClock = new Timer();
     command = User.COMMAND.NONE;
-    snaildirection=0;
     moveLeft = false;
     moveRight = false;
     moveUp = false;
@@ -300,10 +298,10 @@ public class Engine implements EngineService, RequireDataService{
 	  }
   
   private void moveSnail(){
-	 if((data.getSnail().p.x<data.getField().xmax && snaildirection==1)||(data.getSnail().p.x>data.getField().xmin && snaildirection==2)){
-		  if(snaildirection==1)
+	 if((data.getSnail().p.x<data.getField().xmax && data.getSnail().snaildirection==1)||(data.getSnail().p.x>data.getField().xmin && data.getSnail().snaildirection==2)){
+		  if(data.getSnail().snaildirection==1)
 		data.setSnail(true, new Position(data.getSnail().p.x+10,data.getSnail().p.y));
-		  if(snaildirection==2)
+		  if(data.getSnail().snaildirection==2)
 		data.setSnail(true, new Position(data.getSnail().p.x-10,data.getSnail().p.y));  
 	  } else{
 		  data.setSnail(false, data.getSnail().p);
@@ -315,10 +313,10 @@ public class Engine implements EngineService, RequireDataService{
   private void spawnSnail(Position p){
 	  if(p.x>HardCodedParameters.defaultWidth/2){
 		data.setSnail(true, new Position(0,data.getField().ymax));
-		snaildirection=1;
+		data.setSnailDirection(1);
 	  } else{
 		  data.setSnail(true, new Position(data.getField().xmax-10,data.getField().ymax)); 
-		  snaildirection=2;
+		  data.setSnailDirection(2);
 	  }
 	  }  
   

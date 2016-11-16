@@ -30,4 +30,5 @@ public interface WriteService {
   public void setSnail(boolean b, Position p);
   public void SnailPick(boolean b);
   public void setHighscore(String highscore);
+void setSnailDirection(int i);
 }

@@ -23,6 +23,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import javafx.scene.text.Font;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -248,6 +249,10 @@ public class Viewer implements ViewerService, RequireReadService{
         
         es.setTranslateX(shrink*data.getSnail().p.x);
         es.setTranslateY(shrink*data.getSnail().p.y);
+        if(data.getSnail().snaildirection==2){
+        	es.setRotationAxis(Rotate.Y_AXIS);
+        	es.setRotate(-180);
+        }
         panel.getChildren().add(es);
     }
     
