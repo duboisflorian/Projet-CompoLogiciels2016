@@ -28,6 +28,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Rectangle2D;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -41,6 +48,7 @@ public class Viewer implements ViewerService, RequireReadService{
   private ArrayList<Rectangle2D> ChildAvatarViewports;
   private ArrayList<Integer> ChildAvatarXModifiers;
   private ArrayList<Integer> ChildAvatarYModifiers;
+  private String highscore;
   private int ChildAvatarViewportIndex;
   private double xShrink,yShrink,shrink,xModifier,yModifier,ChildScale;
 
@@ -79,6 +87,53 @@ public class Viewer implements ViewerService, RequireReadService{
     xModifier=.01*shrink*defaultMainHeight;
     yModifier=.01*shrink*defaultMainHeight;
 
+    //Highscore 
+    try{
+    	InputStream flux=new FileInputStream("C:/Users/yanio/Documents/eclipse/Projet-CompoLogiciels2016/Highscore/highscore.txt"); 
+    	InputStreamReader lecture=new InputStreamReader(flux);
+    	BufferedReader buff=new BufferedReader(lecture);
+    	String ligne;
+    	while ((ligne=buff.readLine())!=null){
+    		highscore=ligne;
+    	}
+    	buff.close(); 
+    	}		
+    	catch (Exception e){
+    	System.out.println(e.toString());
+    	}
+    if(data.getChildScore()>Integer.parseInt(highscore)){
+		File f = new File ("C:/Users/yanio/Documents/eclipse/Projet-CompoLogiciels2016/Highscore/highscore.txt");
+		 
+		try
+		{
+		    FileWriter fw = new FileWriter (f);
+		 
+		        fw.write(Integer.toString(data.getChildScore()));
+		 
+		    fw.close();
+		}
+		catch (IOException exception)
+		{
+		    System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
+		}
+		}
+    // Partie2
+    Rectangle partie2 = new Rectangle(defaultMainWidth*shrink+150,
+            400*shrink);
+    partie2.setFill(Color.BLACK);
+    partie2.setTranslateX(shrink*(defaultMainWidth+160));
+	
+	Text highscoretxt = new Text(shrink*(defaultMainWidth+160),
+	     shrink*50,
+	     "Highscore : " + highscore);
+	highscoretxt.setFont(new Font(.04*shrink*defaultMainHeight));
+	highscoretxt.setFill(Color.WHITE);
+	
+	Text nbpartie = new Text(shrink*(defaultMainWidth+160),
+		     shrink*100,
+		     "Nb de partie jouee : ");
+	nbpartie.setFont(new Font(.04*shrink*defaultMainHeight));
+	nbpartie.setFill(Color.WHITE);
     //Yucky hard-conding
     Rectangle background = new Rectangle(defaultMainWidth*shrink+150,
                                   defaultMainHeight*shrink);
@@ -114,7 +169,7 @@ public class Viewer implements ViewerService, RequireReadService{
     ChildAvatarViewportIndex=(ChildAvatarViewportIndex+1)%(ChildAvatarViewports.size()*spriteSlowDownRate);  
     
     Group panel = new Group();
-    panel.getChildren().addAll(background,level,Score,ChildAvatar);
+    panel.getChildren().addAll(background,level,Score,ChildAvatar,partie2,highscoretxt,nbpartie);
 
     ArrayList<EnemyService> ballon = data.getEnemy();
     EnemyService e;
