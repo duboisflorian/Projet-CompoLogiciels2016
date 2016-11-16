@@ -300,7 +300,7 @@ public class Engine implements EngineService, RequireDataService{
 	  }
   
   private void moveSnail(){
-	 if((data.getSnail().p.x<data.getField().xmax && snaildirection==1)||(data.getSnail().p.x<data.getField().xmin && snaildirection==2)){
+	 if((data.getSnail().p.x<data.getField().xmax && snaildirection==1)||(data.getSnail().p.x>data.getField().xmin && snaildirection==2)){
 		  if(snaildirection==1)
 		data.setSnail(true, new Position(data.getSnail().p.x+10,data.getSnail().p.y));
 		  if(snaildirection==2)
