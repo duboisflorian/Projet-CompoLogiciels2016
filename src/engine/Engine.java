@@ -113,6 +113,10 @@ public class Engine implements EngineService, RequireDataService{
                 data.setLevelnbkill( data.getLevel().nbkill+1);
                 data.setChildScore(data.getChildScore()+1);
                 data.setSoundEffect(Sound.SOUND.ChildGotHit);
+              	if(data.getChildScore()%5==0) 
+            	{
+            		spawnlollipop(b);
+            	}
               } else {
             	  if(b.getHealth()>0)ballon.add(b);
             	  else{
