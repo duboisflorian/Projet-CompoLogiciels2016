@@ -366,19 +366,7 @@ public class Engine implements EngineService, RequireDataService{
 		  }
 	}
   private void Writehighscore(){
-	  File f = new File ("src/backoffice/highscore.txt");      			 
-		try
-		{
-		    FileWriter fw = new FileWriter (f);
-		 
-		        fw.write(data.getHighscore());
-		 
-		    fw.close();
-		}
-		catch (IOException exception)
-		{
-		    System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
-		}
+
 		} 
 	
   private boolean collisionChildEnemys(){
