@@ -1,0 +1,14 @@
+<jeu>
+	<classement>
+		<numero id = "1" >
+			<pseudo>jerome</pseudo>
+			<score>29</score>
+		</numero>
+	</classement>
+	<partie>
+		<nombrePartie></nombrePartie>
+		<tempsTotal></tempsTotal>
+		<tempsMoyen></tempsMoyen>
+	</partie>
+
+</jeu>
