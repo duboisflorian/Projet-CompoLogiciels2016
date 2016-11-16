@@ -118,11 +118,6 @@ public class Viewer implements ViewerService, RequireReadService{
 //		    System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
 //		}
 //		}
-    // Partie2
-    Rectangle partie2 = new Rectangle(defaultMainWidth*shrink+150,
-            400*shrink);
-    partie2.setFill(Color.BLACK);
-    partie2.setTranslateX(shrink*(defaultMainWidth+160));
 	
 	Text highscoretxt = new Text(shrink*(defaultMainWidth+160),
 	     shrink*50,
@@ -139,6 +134,12 @@ public class Viewer implements ViewerService, RequireReadService{
     Rectangle background = new Rectangle(defaultMainWidth*shrink+150,
                                   defaultMainHeight*shrink);
     background.setFill(new ImagePattern(Field));
+    
+    // Partie2
+    Rectangle partie2 = new Rectangle(shrink*(HardCodedParameters.defaultWidth+500)-(defaultMainWidth+150),
+            400*shrink);
+    partie2.setFill(Color.BLACK);
+    partie2.setTranslateX(defaultMainWidth*shrink+150);
     
     Text level = new Text(-0.1*shrink*defaultMainHeight+.1*shrink*defaultMainWidth,
                            -0.08*shrink*defaultMainWidth+shrink*defaultMainHeight,
@@ -170,7 +171,7 @@ public class Viewer implements ViewerService, RequireReadService{
     ChildAvatarViewportIndex=(ChildAvatarViewportIndex+1)%(ChildAvatarViewports.size()*spriteSlowDownRate);  
     
     Group panel = new Group();
-    panel.getChildren().addAll(background,level,Score,ChildAvatar,partie2,highscoretxt,nbpartie);
+    panel.getChildren().addAll(background,partie2,level,Score,ChildAvatar,highscoretxt,nbpartie);
 
     ArrayList<EnemyService> ballon = data.getEnemy();
     EnemyService e;

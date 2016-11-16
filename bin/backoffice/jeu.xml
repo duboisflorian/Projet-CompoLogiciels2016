@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jeu>
+	<classement>
+		<numero id = "1" >
+			<pseudo>jerome</pseudo>
+			<score>29</score>
+		</numero>
+		<numero id = "2" >
+			<pseudo>Test</pseudo>
+			<score>29</score>
+		</numero>
+		<numero id = "3" >
+			<pseudo>Papiss</pseudo>
+			<score>29</score>
+		</numero>
+	</classement>
+	<partie>
+		<nombrePartie>5</nombrePartie>
+		<tempsTotal>10</tempsTotal>
+		<tempsMoyen>5</tempsMoyen>
+	</partie>
+</jeu>

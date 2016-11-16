@@ -189,6 +189,7 @@ public class Engine implements EngineService, RequireDataService{
   @Override
   public void stop(){
     engineClock.cancel();
+    System.exit(0);
   }
 
   @Override
