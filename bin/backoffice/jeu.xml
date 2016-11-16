@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jeu>
 	<classement>
-		<numero id = "1" >
+		<numero id="1">
 			<pseudo>florian</pseudo>
-			<score>29</score>
+			<score>23</score>
 		</numero>
-		<numero id = "2" >
+		<numero id="2">
 			<pseudo>jabrane</pseudo>
-			<score>25</score>
+			<score>19</score>
 		</numero>
-		<numero id = "3" >
+		<numero id="3">
 			<pseudo>Papiss</pseudo>
-			<score>29</score>
+			<score>15</score>
 		</numero>
 	</classement>
 	<partie>
-		<nombrePartie>3</nombrePartie>
-		<tempsTotal>300</tempsTotal>
-		<tempsMoyen>100</tempsMoyen>
+		<nombrePartie>10</nombrePartie>
+		<tempsTotal>1500</tempsTotal>
+		<tempsMoyen>150</tempsMoyen>
 	</partie>
 </jeu>

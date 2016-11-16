@@ -127,7 +127,7 @@ public class Viewer implements ViewerService, RequireReadService{
 	
 	Text nbpartie = new Text(shrink*(defaultMainWidth+160),
 		     shrink*100,
-		     "Nb de partie jouee : ");
+		     "Nb de partie jouee : " + data.getnbparties());
 	nbpartie.setFont(new Font(.04*shrink*defaultMainHeight));
 	nbpartie.setFill(Color.WHITE);
     //Yucky hard-conding
@@ -136,7 +136,7 @@ public class Viewer implements ViewerService, RequireReadService{
     background.setFill(new ImagePattern(Field));
     
     // Partie2
-    Rectangle partie2 = new Rectangle(shrink*(HardCodedParameters.defaultWidth+500)-(defaultMainWidth+150),
+    Rectangle partie2 = new Rectangle(shrink*(HardCodedParameters.defaultWidth+500),
             400*shrink);
     partie2.setFill(Color.BLACK);
     partie2.setTranslateX(defaultMainWidth*shrink+150);

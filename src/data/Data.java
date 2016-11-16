@@ -39,8 +39,11 @@ public class Data implements DataService{
   private Level level;
   private Sound.SOUND sound;
   private ArrayList<Position> lollipop;
-  private int highscore;
   private Snail snail;
+  
+  //backoffice
+  private int highscore,nbparties;
+  
   public Data(){}
 
   @Override
@@ -55,10 +58,38 @@ public class Data implements DataService{
     lollipop = new ArrayList<Position>();
     snail=new Snail();
     highscore=getXMLHightscore();
- 
+    nbparties=getXMLnbparties();
   }
 
-  private int getXMLHightscore() {
+  private int getXMLnbparties() {
+	  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    factory.setIgnoringElementContentWhitespace(true);
+	    try {
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	        File fileXML = new File("src/backoffice/jeu.xml");
+	        Document xml;
+	        
+	        xml = builder.parse(fileXML);
+	        Element root = xml.getDocumentElement();
+	        
+	        NodeList nodes = root.getChildNodes();
+	        Node parties = nodes.item(3);
+	        
+	        NodeList listesparties = parties.getChildNodes();
+	        Node nbparties = listesparties.item(1);
+	        
+	           return Integer.parseInt(nbparties.getTextContent()); 
+	     } catch (ParserConfigurationException e) {
+	        e.printStackTrace();
+	     } catch (SAXException e) {
+	        e.printStackTrace();
+	     } catch (IOException e) {
+	        e.printStackTrace();
+	     }
+	return 0;
+}
+
+private int getXMLHightscore() {
 	  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    factory.setIgnoringElementContentWhitespace(true);
 	    try {
@@ -204,6 +235,11 @@ public class Data implements DataService{
 	@Override
 	public void setHighscore(int highscore) {
 		this.highscore = highscore;
+	}
+	
+	@Override
+	public int getnbparties() {
+		return nbparties;
 	}
 
 }

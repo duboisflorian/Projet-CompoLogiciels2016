@@ -17,7 +17,6 @@ import specifications.EnemyService;
 import specifications.RequireDataService;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -28,6 +27,12 @@ import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -94,10 +99,15 @@ public class Engine implements EngineService, RequireDataService{
     			}
     	  
     	 if(data.getChildHealth()<=HardCodedParameters.MinHealth)  {
-  			JOptionPane.showMessageDialog(null,"You are dead");
-      		WriteXML();
-  			//stop();
-  			//Platform.exit();  		
+      		try {
+				WriteXML();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+      		JOptionPane.showMessageDialog(null,"You are dead");
+  			stop();
+  			Platform.exit();  		
   		}
     	 
   		int ii=gen.nextInt(100);
@@ -137,7 +147,7 @@ public class Engine implements EngineService, RequireDataService{
                       data.setLevelnbkill( data.getLevel().nbkill+1);
                       data.setSoundEffect(Sound.SOUND.EnemyDestroyed);
             	  data.setChildScore(data.getChildScore()+1);
-              	if(data.getChildScore()%5==0) 
+              	if(data.getChildScore()%50==0) 
             	{
             		spawnlollipop(b);
             	}
@@ -374,7 +384,7 @@ public class Engine implements EngineService, RequireDataService{
 			  return false;
 		  }
 	}
-  private void WriteXML(){
+  private void WriteXML() throws TransformerException{
 	  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    factory.setIgnoringElementContentWhitespace(true);
 	    try {
@@ -386,6 +396,8 @@ public class Engine implements EngineService, RequireDataService{
 	        Element root = xml.getDocumentElement();
 	        
 	        NodeList nodes = root.getChildNodes();
+	        
+	        //NB PARTIES
 	        Node parties = nodes.item(3);
 	        
 	        NodeList listesparties = parties.getChildNodes();
@@ -393,7 +405,41 @@ public class Engine implements EngineService, RequireDataService{
 	        int nb = Integer.parseInt(nbparties.getTextContent());
 	        nb++;
 	        nbparties.setTextContent(Integer.toString(nb));
-	        System.out.println(nbparties.getTextContent());
+	        
+	        //TOP SCORE
+	        Node classement = nodes.item(1);
+	        
+	        NodeList numeros = classement.getChildNodes();
+	        Node numero1 = numeros.item(1);	  
+	        Node numero2 = numeros.item(3);
+	        Node numero3 = numeros.item(5);
+	        
+	        if(data.getChildScore()>Integer.parseInt(numero1.getChildNodes().item(3).getTextContent())){
+		        numero3.getChildNodes().item(3).setTextContent(numero2.getChildNodes().item(3).getTextContent());
+		        numero2.getChildNodes().item(3).setTextContent(numero1.getChildNodes().item(3).getTextContent());
+		        numero1.getChildNodes().item(3).setTextContent(Integer.toString(data.getChildScore()));
+	        }
+	        else if(data.getChildScore()>Integer.parseInt(numero2.getChildNodes().item(3).getTextContent())){
+		        numero3.getChildNodes().item(3).setTextContent(numero2.getChildNodes().item(3).getTextContent());
+		        numero2.getChildNodes().item(3).setTextContent(Integer.toString(data.getChildScore()));
+	        }
+	        
+	        else if(data.getChildScore()>Integer.parseInt(numero3.getChildNodes().item(3).getTextContent())){
+		        numero3.getChildNodes().item(3).setTextContent(Integer.toString(data.getChildScore()));
+	        }
+	       
+	        //for output
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            //for pretty print
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(xml);
+            
+            //write to file
+            StreamResult file = new StreamResult(new File("src/backoffice/jeu.xml"));
+ 
+            transformer.transform(source, file);
+            System.out.println("DONE");
 	        
 	     } catch (ParserConfigurationException e) {
 	        e.printStackTrace();

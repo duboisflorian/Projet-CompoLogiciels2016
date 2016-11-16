@@ -29,4 +29,5 @@ public interface ReadService {
   public ArrayList<Position> getLollipop();
   public Snail getSnail();
   public int getHighscore();
+int getnbparties();
 }
