@@ -29,6 +29,6 @@ public interface WriteService {
   public void setLollipop(ArrayList<Position> l);
   public void setSnail(boolean b, Position p);
   public void SnailPick(boolean b);
-  public void setHighscore(String highscore);
 void setSnailDirection(int i);
+void setHighscore(int highscore);
 }

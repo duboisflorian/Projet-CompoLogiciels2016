@@ -2,12 +2,12 @@
 <jeu>
 	<classement>
 		<numero id = "1" >
-			<pseudo>jerome</pseudo>
+			<pseudo>florian</pseudo>
 			<score>29</score>
 		</numero>
 		<numero id = "2" >
-			<pseudo>Test</pseudo>
-			<score>29</score>
+			<pseudo>jabrane</pseudo>
+			<score>25</score>
 		</numero>
 		<numero id = "3" >
 			<pseudo>Papiss</pseudo>
@@ -15,8 +15,8 @@
 		</numero>
 	</classement>
 	<partie>
-		<nombrePartie>5</nombrePartie>
-		<tempsTotal>10</tempsTotal>
-		<tempsMoyen>5</tempsMoyen>
+		<nombrePartie>3</nombrePartie>
+		<tempsTotal>300</tempsTotal>
+		<tempsMoyen>100</tempsMoyen>
 	</partie>
 </jeu>

@@ -13,6 +13,8 @@ import tools.Sound;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,13 +22,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-
 import data.ia.Bullet;
 import data.ia.MoveEnemy;
-import error.SimpleErrorHandler;
 import specifications.BulletService;
 import specifications.DataService;
 import specifications.EnemyService;
@@ -41,7 +39,7 @@ public class Data implements DataService{
   private Level level;
   private Sound.SOUND sound;
   private ArrayList<Position> lollipop;
-  private String highscore;
+  private int highscore;
   private Snail snail;
   public Data(){}
 
@@ -56,37 +54,41 @@ public class Data implements DataService{
     sound = Sound.SOUND.None;
     lollipop = new ArrayList<Position>();
     snail=new Snail();
-    highscore="0";
-          DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    highscore=getXMLHightscore();
+ 
+  }
 
-          try {
-            
-             factory.setValidating(true);
-             
-             DocumentBuilder builder = factory.newDocumentBuilder();
-             
-             ErrorHandler errHandler = new SimpleErrorHandler();
+  private int getXMLHightscore() {
+	  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    factory.setIgnoringElementContentWhitespace(true);
+	    try {
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	        File fileXML = new File("src/backoffice/jeu.xml");
+	        Document xml;
+	        
+	        xml = builder.parse(fileXML);
+	        Element root = xml.getDocumentElement();
+	        
+	        NodeList nodes = root.getChildNodes();
+	        Node n = nodes.item(1);
+	           
+	        NodeList classement = n.getChildNodes()  ;
+	        Node class1 = classement.item(1);
+	        
+	        NodeList class1balises = class1.getChildNodes();
+	           Node n1 = class1balises.item(3);
+	           return Integer.parseInt(n1.getTextContent()); 
+	     } catch (ParserConfigurationException e) {
+	        e.printStackTrace();
+	     } catch (SAXException e) {
+	        e.printStackTrace();
+	     } catch (IOException e) {
+	        e.printStackTrace();
+	     }
+	return 0;
+}
 
-             builder.setErrorHandler(errHandler);
-             File fileXML = new File("src/backoffice/jeu.xml");
-             
-             try {
-                Document xml = builder.parse(fileXML);
-                Element root = xml.getDocumentElement();
-                System.out.println(root.getNodeName());
-             } catch (SAXParseException e){}
-             
-          } catch (ParserConfigurationException e) {
-             e.printStackTrace();
-          } catch (SAXException e) {
-             e.printStackTrace();
-          } catch (IOException e) {
-             e.printStackTrace();
-          }      
-          
-       }
-
-  @Override
+@Override
   public Position getChildPosition(){ return child.getPosition(); }
   
   @Override
@@ -196,11 +198,11 @@ public class Data implements DataService{
 	  }
 
 	@Override
-	public String getHighscore() {
+	public int getHighscore() {
 		return highscore;
 	}
 	@Override
-	public void setHighscore(String highscore) {
+	public void setHighscore(int highscore) {
 		this.highscore = highscore;
 	}
 

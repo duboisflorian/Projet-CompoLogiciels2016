@@ -25,6 +25,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import data.Rectangle;
 import javafx.application.Platform;
@@ -80,15 +89,15 @@ public class Engine implements EngineService, RequireDataService{
     engineClock.schedule(new TimerTask(){
       public void run() {
     	  
-    	  if(data.getChildScore()>Integer.parseInt(data.getHighscore())){
-    			    data.setHighscore(Integer.toString(data.getChildScore()));
+    	  if(data.getChildScore()>data.getHighscore()){
+    			    data.setHighscore(data.getChildScore());
     			}
     	  
     	 if(data.getChildHealth()<=HardCodedParameters.MinHealth)  {
   			JOptionPane.showMessageDialog(null,"You are dead");
-      		Writehighscore();
-  			stop();
-  			Platform.exit();  		
+      		WriteXML();
+  			//stop();
+  			//Platform.exit();  		
   		}
     	 
   		int ii=gen.nextInt(100);
@@ -365,8 +374,34 @@ public class Engine implements EngineService, RequireDataService{
 			  return false;
 		  }
 	}
-  private void Writehighscore(){
-
+  private void WriteXML(){
+	  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    factory.setIgnoringElementContentWhitespace(true);
+	    try {
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	        File fileXML = new File("src/backoffice/jeu.xml");
+	        Document xml;
+	        
+	        xml = builder.parse(fileXML);
+	        Element root = xml.getDocumentElement();
+	        
+	        NodeList nodes = root.getChildNodes();
+	        Node parties = nodes.item(3);
+	        
+	        NodeList listesparties = parties.getChildNodes();
+	        Node nbparties = listesparties.item(1);
+	        int nb = Integer.parseInt(nbparties.getTextContent());
+	        nb++;
+	        nbparties.setTextContent(Integer.toString(nb));
+	        System.out.println(nbparties.getTextContent());
+	        
+	     } catch (ParserConfigurationException e) {
+	        e.printStackTrace();
+	     } catch (SAXException e) {
+	        e.printStackTrace();
+	     } catch (IOException e) {
+	        e.printStackTrace();
+	     }
 		} 
 	
   private boolean collisionChildEnemys(){

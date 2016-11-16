@@ -28,5 +28,5 @@ public interface ReadService {
   public SOUND getSoundEffect();
   public ArrayList<Position> getLollipop();
   public Snail getSnail();
-  public String getHighscore();
+  public int getHighscore();
 }
