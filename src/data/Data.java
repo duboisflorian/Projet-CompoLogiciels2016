@@ -50,17 +50,6 @@ public class Data implements DataService{
     sound = Sound.SOUND.None;
     lollipop = new ArrayList<Position>();
     snail=new Snail();
-    SAXBuilder sxb = new SAXBuilder();
-    try
-    {
-       //On crée un nouveau document JDOM avec en argument le fichier XML
-       //Le parsing est terminé ;)
-    	org.jdom.Document document = sxb.build(new File("Exercice2.xml"));
-    }
-    catch(Exception e){}
-
-    //On initialise un nouvel élément racine avec l'élément racine du document.
-    racine = document.getRootElement();
     try{
     	InputStream flux=new FileInputStream("src/backoffice/highscore.txt"); 
     	InputStreamReader lecture=new InputStreamReader(flux);
