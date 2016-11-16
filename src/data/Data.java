@@ -10,6 +10,10 @@ import tools.HardCodedParameters;
 import tools.Position;
 import tools.Sound;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import data.ia.Bullet;
@@ -28,6 +32,7 @@ public class Data implements DataService{
   private Level level;
   private Sound.SOUND sound;
   private ArrayList<Position> lollipop;
+  private String highscore;
   private Snail snail;
   public Data(){}
 
@@ -39,9 +44,22 @@ public class Data implements DataService{
     ballon = new ArrayList<EnemyService>();
     bullet = new ArrayList<BulletService>();
     level=new Level(1,10,100,2);
-    sound = Sound.SOUND.None;;
+    sound = Sound.SOUND.None;
     lollipop = new ArrayList<Position>();
     snail=new Snail();
+    try{
+    	InputStream flux=new FileInputStream("src/backoffice/highscore.txt"); 
+    	InputStreamReader lecture=new InputStreamReader(flux);
+    	BufferedReader buff=new BufferedReader(lecture);
+    	String ligne;
+    	while ((ligne=buff.readLine())!=null){
+    		setHighscore(ligne);
+    	}
+    	buff.close(); 
+    	}		
+    	catch (Exception e){
+    	System.out.println(e.toString());
+    	}
   }
 
   @Override
@@ -147,5 +165,14 @@ public class Data implements DataService{
 	  public void updateLevel(){ 
 		  level.update();
 	  }
+
+	@Override
+	public String getHighscore() {
+		return highscore;
+	}
+	@Override
+	public void setHighscore(String highscore) {
+		this.highscore = highscore;
+	}
 
 }

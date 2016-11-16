@@ -88,35 +88,35 @@ public class Viewer implements ViewerService, RequireReadService{
     yModifier=.01*shrink*defaultMainHeight;
 
     //Highscore 
-    try{
-    	InputStream flux=new FileInputStream("src/backoffice/highscore.txt"); 
-    	InputStreamReader lecture=new InputStreamReader(flux);
-    	BufferedReader buff=new BufferedReader(lecture);
-    	String ligne;
-    	while ((ligne=buff.readLine())!=null){
-    		highscore=ligne;
-    	}
-    	buff.close(); 
-    	}		
-    	catch (Exception e){
-    	System.out.println(e.toString());
-    	}
-    if(data.getChildScore()>Integer.parseInt(highscore)){
-		File f = new File ("src/backoffice/highscore.txt");
-		 
-		try
-		{
-		    FileWriter fw = new FileWriter (f);
-		 
-		        fw.write(Integer.toString(data.getChildScore()));
-		 
-		    fw.close();
-		}
-		catch (IOException exception)
-		{
-		    System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
-		}
-		}
+//    try{
+//    	InputStream flux=new FileInputStream("src/backoffice/highscore.txt"); 
+//    	InputStreamReader lecture=new InputStreamReader(flux);
+//    	BufferedReader buff=new BufferedReader(lecture);
+//    	String ligne;
+//    	while ((ligne=buff.readLine())!=null){
+//    		highscore=ligne;
+//    	}
+//    	buff.close(); 
+//    	}		
+//    	catch (Exception e){
+//    	System.out.println(e.toString());
+//    	}
+//    if(data.getChildScore()>Integer.parseInt(highscore)){
+//		File f = new File ("src/backoffice/highscore.txt");
+//		 
+//		try
+//		{
+//		    FileWriter fw = new FileWriter (f);
+//		 
+//		        fw.write(Integer.toString(data.getChildScore()));
+//		 
+//		    fw.close();
+//		}
+//		catch (IOException exception)
+//		{
+//		    System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
+//		}
+//		}
     // Partie2
     Rectangle partie2 = new Rectangle(defaultMainWidth*shrink+150,
             400*shrink);
@@ -125,7 +125,7 @@ public class Viewer implements ViewerService, RequireReadService{
 	
 	Text highscoretxt = new Text(shrink*(defaultMainWidth+160),
 	     shrink*50,
-	     "Highscore : " + highscore);
+	     "Highscore : " + data.getHighscore());
 	highscoretxt.setFont(new Font(.04*shrink*defaultMainHeight));
 	highscoretxt.setFill(Color.WHITE);
 	

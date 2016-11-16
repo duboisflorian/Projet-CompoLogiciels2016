@@ -25,7 +25,8 @@ public interface ReadService {
   public ArrayList<EnemyService> getEnemy();
   public Level getLevel();
   public ArrayList<BulletService> getBullet();
-SOUND getSoundEffect();
-ArrayList<Position> getLollipop();
-Snail getSnail();
+  public SOUND getSoundEffect();
+  public ArrayList<Position> getLollipop();
+  public Snail getSnail();
+  public String getHighscore();
 }

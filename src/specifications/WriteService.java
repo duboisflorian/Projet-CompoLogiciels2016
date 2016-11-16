@@ -21,12 +21,13 @@ public interface WriteService {
   public void addEnemy(Position p);
   public void updateLevel();
   public void addBullet(Position p);
-void setBullet(ArrayList<BulletService> bu);
-void setLevelnbpop(int i);
-void setLevelnbkill(int i);
-void setSoundEffect(SOUND s);
-void addLollipop(Position p);
-void setLollipop(ArrayList<Position> l);
-void setSnail(boolean b, Position p);
-void SnailPick(boolean b);
+  public void setBullet(ArrayList<BulletService> bu);
+  public void setLevelnbpop(int i);
+  public void setLevelnbkill(int i);
+  public void setSoundEffect(SOUND s);
+  public void addLollipop(Position p);
+  public void setLollipop(ArrayList<Position> l);
+  public void setSnail(boolean b, Position p);
+  public void SnailPick(boolean b);
+  public void setHighscore(String highscore);
 }

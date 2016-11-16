@@ -80,8 +80,13 @@ public class Engine implements EngineService, RequireDataService{
     engineClock.schedule(new TimerTask(){
       public void run() {
     	  
+    	  if(data.getChildScore()>Integer.parseInt(data.getHighscore())){
+    			    data.setHighscore(Integer.toString(data.getChildScore()));
+    			}
+    	  
     	 if(data.getChildHealth()<=HardCodedParameters.MinHealth)  {
   			JOptionPane.showMessageDialog(null,"You are dead");
+      		Writehighscore();
   			stop();
   			Platform.exit();  		
   		}
@@ -349,7 +354,22 @@ public class Engine implements EngineService, RequireDataService{
 			  return false;
 		  }
 	}
-  
+  private void Writehighscore(){
+	  File f = new File ("src/backoffice/highscore.txt");      			 
+		try
+		{
+		    FileWriter fw = new FileWriter (f);
+		 
+		        fw.write(data.getHighscore());
+		 
+		    fw.close();
+		}
+		catch (IOException exception)
+		{
+		    System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
+		}
+		} 
+	
   private boolean collisionChildEnemys(){
     for (EnemyService e:data.getEnemy()) if (collisionChildEnemy(e)) return true; return false;
   }
