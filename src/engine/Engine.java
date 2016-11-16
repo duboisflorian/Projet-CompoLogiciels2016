@@ -327,7 +327,7 @@ public class Engine implements EngineService, RequireDataService{
   }
   
 	private boolean collisionSnailLollipop(Position po) {
-		  Rectangle rect1 = new Rectangle((int)data.getSnail().p.x - 50,(int) data.getSnail().p.y, 100, 100);
+		  Rectangle rect1 = new Rectangle((int)data.getSnail().p.x - 50,(int) data.getSnail().p.y, 80, 80);
 		  Rectangle rect2 = new Rectangle((int)po.x - 20,(int) po.y - 20, 20, 20);
 
 
