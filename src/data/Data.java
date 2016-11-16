@@ -15,6 +15,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.io.*;
+import java.util.List;
+import java.util.Iterator;
 
 import data.ia.Bullet;
 import data.ia.MoveEnemy;
@@ -47,6 +50,17 @@ public class Data implements DataService{
     sound = Sound.SOUND.None;
     lollipop = new ArrayList<Position>();
     snail=new Snail();
+    SAXBuilder sxb = new SAXBuilder();
+    try
+    {
+       //On crée un nouveau document JDOM avec en argument le fichier XML
+       //Le parsing est terminé ;)
+    	org.jdom.Document document = sxb.build(new File("Exercice2.xml"));
+    }
+    catch(Exception e){}
+
+    //On initialise un nouvel élément racine avec l'élément racine du document.
+    racine = document.getRootElement();
     try{
     	InputStream flux=new FileInputStream("src/backoffice/highscore.txt"); 
     	InputStreamReader lecture=new InputStreamReader(flux);
