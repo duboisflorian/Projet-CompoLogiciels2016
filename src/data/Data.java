@@ -10,15 +10,23 @@ import tools.HardCodedParameters;
 import tools.Position;
 import tools.Sound;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.io.*;
-import java.util.List;
 
-import org.jdom2.*;
-import org.jdom2.input.SAXBuilder;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import data.ia.Bullet;
 import data.ia.MoveEnemy;
+import error.SimpleErrorHandler;
 import specifications.BulletService;
 import specifications.DataService;
 import specifications.EnemyService;
@@ -34,7 +42,6 @@ public class Data implements DataService{
   private Sound.SOUND sound;
   private ArrayList<Position> lollipop;
   private String highscore;
-  private Document document;
   private Snail snail;
   public Data(){}
 
@@ -49,36 +56,35 @@ public class Data implements DataService{
     sound = Sound.SOUND.None;
     lollipop = new ArrayList<Position>();
     snail=new Snail();
-  //On cree une instance de SAXBuilder
-    SAXBuilder sxb = new SAXBuilder();
-    try
-    {
-       //On cree un nouveau document JDOM avec en argument le fichier XML
-       //Le parsing est termine ;)
-    	document = sxb.build(new File("src/backoffice/jeu.xml"));
-    }
-    catch(Exception e){}
+    highscore="0";
+          DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-    //On initialise un nouvel element racine avec l'element racine du document.
-    Element racine = document.getRootElement();
-    //On cree une List contenant tous les noeuds "etudiant" de l'Element racine
-    Element classement = (Element)racine.getChildren("classement");
-    List listEtudiants = classement.getChildren("numero");
-    highscore = ((Element)listEtudiants.get(0)).getChild("score").getText();
-//    try{
-//    	InputStream flux=new FileInputStream("src/backoffice/highscore.txt"); 
-//    	InputStreamReader lecture=new InputStreamReader(flux);
-//    	BufferedReader buff=new BufferedReader(lecture);
-//    	String ligne;
-//    	while ((ligne=buff.readLine())!=null){
-//    		setHighscore(ligne);
-//    	}
-//    	buff.close(); 
-//    	}		
-//    	catch (Exception e){
-//    	System.out.println(e.toString());
-//    	}
-  }
+          try {
+            
+             factory.setValidating(true);
+             
+             DocumentBuilder builder = factory.newDocumentBuilder();
+             
+             ErrorHandler errHandler = new SimpleErrorHandler();
+
+             builder.setErrorHandler(errHandler);
+             File fileXML = new File("src/backoffice/jeu.xml");
+             
+             try {
+                Document xml = builder.parse(fileXML);
+                Element root = xml.getDocumentElement();
+                System.out.println(root.getNodeName());
+             } catch (SAXParseException e){}
+             
+          } catch (ParserConfigurationException e) {
+             e.printStackTrace();
+          } catch (SAXException e) {
+             e.printStackTrace();
+          } catch (IOException e) {
+             e.printStackTrace();
+          }      
+          
+       }
 
   @Override
   public Position getChildPosition(){ return child.getPosition(); }
