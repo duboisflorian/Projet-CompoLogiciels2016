@@ -10,14 +10,12 @@ import tools.HardCodedParameters;
 import tools.Position;
 import tools.Sound;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.io.*;
 import java.util.List;
-import java.util.Iterator;
+
+import org.jdom2.*;
+import org.jdom2.input.SAXBuilder;
 
 import data.ia.Bullet;
 import data.ia.MoveEnemy;
@@ -36,6 +34,7 @@ public class Data implements DataService{
   private Sound.SOUND sound;
   private ArrayList<Position> lollipop;
   private String highscore;
+  private Document document;
   private Snail snail;
   public Data(){}
 
@@ -50,19 +49,35 @@ public class Data implements DataService{
     sound = Sound.SOUND.None;
     lollipop = new ArrayList<Position>();
     snail=new Snail();
-    try{
-    	InputStream flux=new FileInputStream("src/backoffice/highscore.txt"); 
-    	InputStreamReader lecture=new InputStreamReader(flux);
-    	BufferedReader buff=new BufferedReader(lecture);
-    	String ligne;
-    	while ((ligne=buff.readLine())!=null){
-    		setHighscore(ligne);
-    	}
-    	buff.close(); 
-    	}		
-    	catch (Exception e){
-    	System.out.println(e.toString());
-    	}
+  //On cree une instance de SAXBuilder
+    SAXBuilder sxb = new SAXBuilder();
+    try
+    {
+       //On cree un nouveau document JDOM avec en argument le fichier XML
+       //Le parsing est termine ;)
+    	document = sxb.build(new File("src/backoffice/jeu.xml"));
+    }
+    catch(Exception e){}
+
+    //On initialise un nouvel element racine avec l'element racine du document.
+    Element racine = document.getRootElement();
+    //On cree une List contenant tous les noeuds "etudiant" de l'Element racine
+    Element classement = (Element)racine.getChildren("classement");
+    List listEtudiants = classement.getChildren("numero");
+    highscore = ((Element)listEtudiants.get(0)).getChild("score").getText();
+//    try{
+//    	InputStream flux=new FileInputStream("src/backoffice/highscore.txt"); 
+//    	InputStreamReader lecture=new InputStreamReader(flux);
+//    	BufferedReader buff=new BufferedReader(lecture);
+//    	String ligne;
+//    	while ((ligne=buff.readLine())!=null){
+//    		setHighscore(ligne);
+//    	}
+//    	buff.close(); 
+//    	}		
+//    	catch (Exception e){
+//    	System.out.println(e.toString());
+//    	}
   }
 
   @Override
