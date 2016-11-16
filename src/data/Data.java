@@ -40,7 +40,7 @@ public class Data implements DataService{
   public void init(){
     child = new Child(new Position(HardCodedParameters.ChildStartX,HardCodedParameters.ChildStartY));
     stepNumber = 0;
-    field = new Field(HardCodedParameters.ChildWidth/2,HardCodedParameters.defaultWidth-(HardCodedParameters.ChildWidth/2.5),HardCodedParameters.ChildHeight/1.3,HardCodedParameters.defaultHeight-250);
+    field = new Field(HardCodedParameters.ChildWidth/2.6,HardCodedParameters.defaultWidth+120-(HardCodedParameters.ChildWidth/2.5),HardCodedParameters.ChildHeight/1.5,HardCodedParameters.defaultHeight-250);
     ballon = new ArrayList<EnemyService>();
     bullet = new ArrayList<BulletService>();
     level=new Level(1,10,100,2);

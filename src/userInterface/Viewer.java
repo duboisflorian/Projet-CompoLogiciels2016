@@ -191,7 +191,7 @@ public class Viewer implements ViewerService, RequireReadService{
     	   Rectangle Health = new Rectangle();
     	    Health.setX(shrink*e.getPosition().x+5);
     	    Health.setFill(Color.GREENYELLOW);
-    	    Health.setY(shrink*e.getPosition().y - 15);
+    	    Health.setY(shrink*e.getPosition().y - 10);
     	    Health.setWidth((e.getHealth()*75)/data.getLevel().healthEnemy);
     	    Health.setHeight(10);
     	  panel.getChildren().add(Health);
@@ -219,7 +219,7 @@ public class Viewer implements ViewerService, RequireReadService{
       		  HardCodedParameters.healthWidth*shrink);
         health.setFill(new ImagePattern(new Image("file:src/images/heart.png")));
         
-        health.setTranslateX(-0.1*shrink*defaultMainHeight+(.999 - i)*shrink*defaultMainWidth);
+        health.setTranslateX(-0.1*shrink*defaultMainHeight+(.999 - i)*shrink*defaultMainWidth+150);
         health.setTranslateY(-0.09*shrink*defaultMainWidth+shrink*defaultMainHeight);
         panel.getChildren().add(health);
       }
