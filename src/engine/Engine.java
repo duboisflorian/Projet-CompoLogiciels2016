@@ -140,6 +140,7 @@ public class Engine implements EngineService, RequireDataService{
             }
         
         for (Position p:data.getLollipop()){
+        	int a=0,b=0;
         	moveLollipop(p);
         	if(data.getSnail().exist==true){
         		moveSnail();
@@ -150,15 +151,19 @@ public class Engine implements EngineService, RequireDataService{
         	}
         	
             if (collisionChildLollipop(p)){
-            	if(data.getChildHealth()<HardCodedParameters.MaxHealth)
+            	if(data.getChildHealth()<HardCodedParameters.MaxHealth){
             		data.setChildHealth(data.getChildHealth()+1);
+            		data.SnailPick(false);
+            		a++;
+            	}
               } 
             
             if(data.getSnail().p.y >= data.getField().ymax && collisionSnailLollipop(p)){
-            data.SnailPick(true);	
+            data.SnailPick(true);
+            b++;
             }
             
-            if(!collisionChildLollipop(p) && !collisionSnailLollipop(p)){
+            if(a==0 && b==0){
             	  lollipop.add(p);
               }
             }
@@ -331,7 +336,7 @@ public class Engine implements EngineService, RequireDataService{
   }
   
 	private boolean collisionSnailLollipop(Position po) {
-		  Rectangle rect1 = new Rectangle((int)data.getSnail().p.x - 50,(int) data.getSnail().p.y, 80, 80);
+		  Rectangle rect1 = new Rectangle((int)data.getSnail().p.x - 50,(int) data.getSnail().p.y-100, 100, 100);
 		  Rectangle rect2 = new Rectangle((int)po.x - 20,(int) po.y - 20, 20, 20);
 
 
