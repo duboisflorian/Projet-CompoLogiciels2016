@@ -83,8 +83,7 @@ public class Engine implements EngineService, RequireDataService{
     	 if(data.getChildHealth()<=HardCodedParameters.MinHealth)  {
   			JOptionPane.showMessageDialog(null,"You are dead");
   			stop();
-  			Platform.exit();
-  		
+  			Platform.exit();  		
   		}
     	 
   		int ii=gen.nextInt(100);

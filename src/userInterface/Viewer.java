@@ -89,7 +89,7 @@ public class Viewer implements ViewerService, RequireReadService{
 
     //Highscore 
     try{
-    	InputStream flux=new FileInputStream("C:/Users/yanio/Documents/eclipse/Projet-CompoLogiciels2016/Highscore/highscore.txt"); 
+    	InputStream flux=new FileInputStream("src/backoffice/highscore.txt"); 
     	InputStreamReader lecture=new InputStreamReader(flux);
     	BufferedReader buff=new BufferedReader(lecture);
     	String ligne;
@@ -102,7 +102,7 @@ public class Viewer implements ViewerService, RequireReadService{
     	System.out.println(e.toString());
     	}
     if(data.getChildScore()>Integer.parseInt(highscore)){
-		File f = new File ("C:/Users/yanio/Documents/eclipse/Projet-CompoLogiciels2016/Highscore/highscore.txt");
+		File f = new File ("src/backoffice/highscore.txt");
 		 
 		try
 		{
