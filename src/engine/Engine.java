@@ -147,7 +147,7 @@ public class Engine implements EngineService, RequireDataService{
                       data.setLevelnbkill( data.getLevel().nbkill+1);
                       data.setSoundEffect(Sound.SOUND.EnemyDestroyed);
             	  data.setChildScore(data.getChildScore()+1);
-              	if(data.getChildScore()%50==0) 
+              	if(data.getChildScore()%5==0) 
             	{
             		spawnlollipop(b);
             	}
