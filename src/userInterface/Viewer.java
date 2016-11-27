@@ -108,7 +108,7 @@ public class Viewer implements ViewerService, RequireReadService{
 	
 	Text TempsTotal = new Text(shrink*(defaultMainWidth+160),
 		     shrink*200,
-		     "Temps total joué : " + data.getTempsTotal() + " minutes");
+		     "Temps total joue : " + data.getTempsTotal() + " minutes");
 	TempsTotal.setFont(new Font(.04*shrink*defaultMainHeight));
 	TempsTotal.setFill(Color.WHITE);
 	

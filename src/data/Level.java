@@ -19,7 +19,12 @@ public class Level {
 		level++;
 		healthEnemy=healthEnemy+25;
 		nbEnemy=nbEnemy+5;
-		invoc=invoc-0.5;
+		
+		if(invoc<=0.5 && invoc>0.2)
+		invoc=invoc-0.1;
+		if(invoc>=1)
+			invoc=invoc-0.5;
+		
 		nbkill=0;
 		nbpop=0;
 	}
