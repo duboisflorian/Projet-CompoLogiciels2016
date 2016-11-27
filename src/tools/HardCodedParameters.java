@@ -17,7 +17,7 @@ public class HardCodedParameters {
                           lollipopWidth =100, lollipopHeight = 100, lollipopStep = 20,
                           healthWidth = 50, healthHeight=50;
   public static final int enginePaceMillis = 100,
-		  				bulletPaceMillis = 407,
+		  				bulletPaceMillis = 400,
                           spriteSlowDownRate = 7;
   public static final double friction = 0.50;
   public static final double resolutionShrinkFactor = 0.95,

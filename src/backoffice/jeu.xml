@@ -2,21 +2,21 @@
 <jeu>
 	<classement>
 		<numero id="1">
-			<pseudo>flopute</pseudo>
+			<pseudo>flo</pseudo>
 			<score>98</score>
 		</numero>
 		<numero id="2">
 			<pseudo>jabrane</pseudo>
-			<score>19</score>
+			<score>24</score>
 		</numero>
 		<numero id="3">
 			<pseudo>Papiss</pseudo>
-			<score>15</score>
+			<score>19</score>
 		</numero>
 	</classement>
 	<partie>
-		<nombrePartie>11</nombrePartie>
-		<tempsTotal>1500</tempsTotal>
-		<tempsMoyen>150</tempsMoyen>
+		<nombrePartie>17</nombrePartie>
+		<tempsTotal>1677</tempsTotal>
+		<tempsMoyen>98</tempsMoyen>
 	</partie>
 </jeu>

@@ -12,7 +12,10 @@ import tools.Sound;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -42,7 +45,8 @@ public class Data implements DataService{
   private Snail snail;
   
   //backoffice
-  private int highscore,nbparties;
+  private int highscore,nbparties,tt,tm;
+  private Date debut,fin;
   
   public Data(){}
 
@@ -53,20 +57,83 @@ public class Data implements DataService{
     field = new Field(HardCodedParameters.ChildWidth/2.6,HardCodedParameters.defaultWidth+120-(HardCodedParameters.ChildWidth/2.5),HardCodedParameters.ChildHeight/1.5,HardCodedParameters.defaultHeight-250);
     ballon = new ArrayList<EnemyService>();
     bullet = new ArrayList<BulletService>();
-    level=new Level(1,10,100,2);
+    level=new Level(1,10,100,5.0);
     sound = Sound.SOUND.None;
     lollipop = new ArrayList<Position>();
     snail=new Snail();
-    highscore=getXMLHightscore();
-    nbparties=getXMLnbparties();
+    highscore=getXMLHightscore("src/backoffice/jeu.xml");
+    nbparties=getXMLnbparties("src/backoffice/jeu.xml");
+    tt=getXMLTempsTotal("src/backoffice/jeu.xml");
+    tm=getXMLTempsMoyen("src/backoffice/jeu.xml");
+    debut=new Date();
+    SimpleDateFormat formater = new SimpleDateFormat("hh:mm:ss");
+    System.out.println(formater.format(debut));
   }
 
-  private int getXMLnbparties() {
+  
+  
+  public int getXMLTempsMoyen(String string) {
 	  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    factory.setIgnoringElementContentWhitespace(true);
 	    try {
 	        DocumentBuilder builder = factory.newDocumentBuilder();
-	        File fileXML = new File("src/backoffice/jeu.xml");
+	        File fileXML = new File(string);
+	        Document xml;
+	        
+	        xml = builder.parse(fileXML);
+	        Element root = xml.getDocumentElement();
+	        
+	        NodeList nodes = root.getChildNodes();
+	        Node parties = nodes.item(3);
+	        
+	        NodeList listesparties = parties.getChildNodes();
+	        Node tempsM = listesparties.item(5);
+	        
+	           return Integer.parseInt(tempsM.getTextContent()); 
+	     } catch (ParserConfigurationException e) {
+	        e.printStackTrace();
+	     } catch (SAXException e) {
+	        e.printStackTrace();
+	     } catch (IOException e) {
+	        e.printStackTrace();
+	     }
+	return 0;
+}
+
+  public int getXMLTempsTotal(String string) {
+	  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    factory.setIgnoringElementContentWhitespace(true);
+	    try {
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	        File fileXML = new File(string);
+	        Document xml;
+	        
+	        xml = builder.parse(fileXML);
+	        Element root = xml.getDocumentElement();
+	        
+	        NodeList nodes = root.getChildNodes();
+	        Node parties = nodes.item(3);
+	        
+	        NodeList listesparties = parties.getChildNodes();
+	        Node tempsT = listesparties.item(3);
+	        
+	           return Integer.parseInt(tempsT.getTextContent()); 
+	     } catch (ParserConfigurationException e) {
+	        e.printStackTrace();
+	     } catch (SAXException e) {
+	        e.printStackTrace();
+	     } catch (IOException e) {
+	        e.printStackTrace();
+	     }
+	return 0;
+}
+
+public int getXMLnbparties(String string) {
+	  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    factory.setIgnoringElementContentWhitespace(true);
+	    try {
+	        DocumentBuilder builder = factory.newDocumentBuilder();
+	        File fileXML = new File(string);
 	        Document xml;
 	        
 	        xml = builder.parse(fileXML);
@@ -89,12 +156,12 @@ public class Data implements DataService{
 	return 0;
 }
 
-private int getXMLHightscore() {
+public int getXMLHightscore(String string) {
 	  DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    factory.setIgnoringElementContentWhitespace(true);
 	    try {
 	        DocumentBuilder builder = factory.newDocumentBuilder();
-	        File fileXML = new File("src/backoffice/jeu.xml");
+	        File fileXML = new File(string);
 	        Document xml;
 	        
 	        xml = builder.parse(fileXML);
@@ -240,6 +307,41 @@ private int getXMLHightscore() {
 	@Override
 	public int getnbparties() {
 		return nbparties;
+	}
+	
+	@Override
+	public void setChild(Child c) {
+		child=c;
+	}
+	
+	@Override
+	public int getTempsTotal() {
+		return  tt / 60;
+	}
+	
+	@Override
+	public int getTempsMoyen() {
+		return tm / 60;
+	}
+
+	@Override
+	public Date getDebut() {
+		return debut;
+	}
+
+	@Override
+	public void setDebut(Date debut) {
+		this.debut = debut;
+	}
+	
+	@Override
+	public Date getFin() {
+		return fin;
+	}
+
+	@Override
+	public void setFin(Date fin) {
+		this.fin = fin;
 	}
 
 }

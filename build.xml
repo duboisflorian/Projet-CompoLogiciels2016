@@ -8,7 +8,8 @@
     <mkdir dir="${build}"/>
   </target>
   <target name="compile" depends="clean,init" description="Compile the source">
-    <javac includeantruntime="false" debug="true" srcdir="${src}" excludes="" destdir="${build}"/>
+    <javac includeantruntime="false" debug="true" srcdir="${src}" destdir="${build}">
+    </javac>
   </target>
   <target name="run" depends="compile" description="Run application">
     <echo>================ Run Object Main ================</echo>

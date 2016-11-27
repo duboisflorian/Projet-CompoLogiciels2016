@@ -11,6 +11,7 @@ import tools.Sound;
 import tools.Sound.SOUND;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import data.Field;
 import data.Level;
@@ -30,4 +31,8 @@ public interface ReadService {
   public Snail getSnail();
   public int getHighscore();
 int getnbparties();
+int getTempsTotal();
+int getTempsMoyen();
+Date getFin();
+Date getDebut();
 }

@@ -17,6 +17,8 @@ import specifications.RequireReadService;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextAreaBuilder;
 import javafx.scene.effect.Lighting;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -36,8 +38,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
+
+import data.ia.MoveEnemy;
 
 public class Viewer implements ViewerService, RequireReadService{
   private static final int spriteSlowDownRate=HardCodedParameters.spriteSlowDownRate;
@@ -89,26 +95,98 @@ public class Viewer implements ViewerService, RequireReadService{
     yModifier=.01*shrink*defaultMainHeight;
 	
 	Text highscoretxt = new Text(shrink*(defaultMainWidth+160),
-	     shrink*50,
+	     shrink*100,
 	     "Highscore : " + data.getHighscore());
 	highscoretxt.setFont(new Font(.04*shrink*defaultMainHeight));
 	highscoretxt.setFill(Color.WHITE);
 	
 	Text nbpartie = new Text(shrink*(defaultMainWidth+160),
-		     shrink*100,
+		     shrink*150,
 		     "Nb de partie jouee : " + data.getnbparties());
 	nbpartie.setFont(new Font(.04*shrink*defaultMainHeight));
 	nbpartie.setFill(Color.WHITE);
+	
+	Text TempsTotal = new Text(shrink*(defaultMainWidth+160),
+		     shrink*200,
+		     "Temps total jouer : " + data.getTempsTotal() + " minutes");
+	TempsTotal.setFont(new Font(.04*shrink*defaultMainHeight));
+	TempsTotal.setFill(Color.WHITE);
+	
+	Text TempsMoyen = new Text(shrink*(defaultMainWidth+160),
+		     shrink*250,
+		     "Temps moyen : " + data.getTempsMoyen() + " minutes");
+	TempsMoyen.setFont(new Font(.04*shrink*defaultMainHeight));
+	TempsMoyen.setFill(Color.WHITE);
+	
     //Yucky hard-conding
     Rectangle background = new Rectangle(defaultMainWidth*shrink+150,
                                   defaultMainHeight*shrink);
     background.setFill(new ImagePattern(Field));
     
     // Partie2
-    Rectangle partie2 = new Rectangle(shrink*(HardCodedParameters.defaultWidth+500),
-            400*shrink);
+    Rectangle partie2 = new Rectangle(defaultMainWidth*shrink+150,
+            defaultMainHeight*shrink);
     partie2.setFill(Color.BLACK);
-    partie2.setTranslateX(defaultMainWidth*shrink+150);
+    partie2.setTranslateX((defaultMainWidth+155)*shrink);
+    
+    // separation
+    Rectangle sep = new Rectangle(defaultMainWidth*shrink+150,
+            10*shrink);
+    sep.setFill(Color.WHITE);
+    sep.setTranslateX((defaultMainWidth+155)*shrink);
+    sep.setTranslateY((defaultMainHeight/2.4)*shrink);
+    
+    // Partie3
+    Rectangle partie3 = new Rectangle(defaultMainWidth*shrink+150,
+            defaultMainHeight*shrink);
+    partie3.setFill(Color.BLACK);
+    partie3.setTranslateX((defaultMainWidth+155)*shrink);
+    partie3.setTranslateY((defaultMainHeight/2)*shrink);
+    
+
+    //ballon par seconde
+	Text invocballon = new Text(shrink*(defaultMainWidth+160),
+		     shrink*450,
+		     "Ballons : tous les " + data.getLevel().invoc +"s");
+	invocballon.setFont(new Font(.04*shrink*defaultMainHeight));
+	invocballon.setFill(Color.WHITE);
+	
+
+    //Flechette par seconde
+	Text flechettepars = new Text(shrink*(defaultMainWidth+160),
+		     shrink*500,
+		     "Flechettes : tous les " + HardCodedParameters.bulletPaceMillis +"ms");
+	flechettepars.setFont(new Font(.04*shrink*defaultMainHeight));
+	flechettepars.setFill(Color.WHITE);
+	
+	
+    //couleur bleu
+	Text couleurb = new Text(shrink*(defaultMainWidth+160),
+		     shrink*600,
+		     "Ballon bleu ( " + MoveEnemy.b +" ) ");
+	couleurb.setFont(new Font(.04*shrink*defaultMainHeight));
+	couleurb.setFill(Color.WHITE);
+	
+    //couleur rouge
+	Text couleurr = new Text(shrink*(defaultMainWidth+160),
+		     shrink*650,
+		     "Ballon rouge ( " + MoveEnemy.r +" ) ");
+	couleurr.setFont(new Font(.04*shrink*defaultMainHeight));
+	couleurr.setFill(Color.WHITE);
+	
+    //couleur vert
+	Text couleurv = new Text(shrink*(defaultMainWidth+160),
+		     shrink*700,
+		     "Ballon vert ( " + MoveEnemy.g +" ) ");
+	couleurv.setFont(new Font(.04*shrink*defaultMainHeight));
+	couleurv.setFill(Color.WHITE);
+	
+    //couleur jaune
+	Text couleurj = new Text(shrink*(defaultMainWidth+160),
+		     shrink*750,
+		     "Ballon jaune ( " + MoveEnemy.y +" ) ");
+	couleurj.setFont(new Font(.04*shrink*defaultMainHeight));
+	couleurj.setFill(Color.WHITE);
     
     Text level = new Text(-0.1*shrink*defaultMainHeight+.1*shrink*defaultMainWidth,
                            -0.08*shrink*defaultMainWidth+shrink*defaultMainHeight,
@@ -140,7 +218,7 @@ public class Viewer implements ViewerService, RequireReadService{
     ChildAvatarViewportIndex=(ChildAvatarViewportIndex+1)%(ChildAvatarViewports.size()*spriteSlowDownRate);  
     
     Group panel = new Group();
-    panel.getChildren().addAll(background,partie2,level,Score,ChildAvatar,highscoretxt,nbpartie);
+    panel.getChildren().addAll(background,partie2,partie3,sep,level,Score,ChildAvatar,highscoretxt,nbpartie,TempsTotal,TempsMoyen,invocballon,flechettepars,couleurb,couleurr,couleurj,couleurv);
 
     ArrayList<EnemyService> ballon = data.getEnemy();
     EnemyService e;
@@ -239,3 +317,5 @@ public class Viewer implements ViewerService, RequireReadService{
     yShrink=height/defaultMainHeight;
   }
 }
+
+

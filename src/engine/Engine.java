@@ -18,10 +18,14 @@ import specifications.RequireDataService;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
@@ -52,6 +56,9 @@ public class Engine implements EngineService, RequireDataService{
   private Random gen;
   private boolean moveLeft,moveRight,moveUp,moveDown;
   private double ChildVX,ChildVY;
+  
+  private Date bulletStartClock,balloonStartClock;
+  
   public Engine(){}
 
   @Override
@@ -61,6 +68,8 @@ public class Engine implements EngineService, RequireDataService{
   
   @Override
   public void init(){
+	bulletStartClock=new Date();
+	balloonStartClock=new Date();
     engineClock = new Timer();
     bulletClock = new Timer();
     command = User.COMMAND.NONE;
@@ -75,24 +84,29 @@ public class Engine implements EngineService, RequireDataService{
 
   @Override
   public void start(){
-	 
-	bulletClock.schedule(new TimerTask(){
-
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			try {
-				spawnBullet();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}  
-		
-	},0,HardCodedParameters.bulletPaceMillis);
-	  
+	   
     engineClock.schedule(new TimerTask(){
       public void run() {
+    	  
+    	  // Custom date format
+  		  SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss.SSS"); 
+
+  		  String d1 = format.format(bulletStartClock);
+  		  String d2 = format.format(new Date());
+  		  
+  		// Get msec from each, and subtract.
+  		long diff = 0;
+		try {
+			diff = format.parse(d2).getTime() - format.parse(d1).getTime();
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+  		if((double) diff>=HardCodedParameters.bulletPaceMillis){
+  			spawnBullet();
+  			bulletStartClock=new Date();
+  		}
     	  
     	  if(data.getChildScore()>data.getHighscore()){
     			    data.setHighscore(data.getChildScore());
@@ -100,6 +114,10 @@ public class Engine implements EngineService, RequireDataService{
     	  
     	 if(data.getChildHealth()<=HardCodedParameters.MinHealth)  {
       		try {
+      			data.setFin(new Date());
+      		    SimpleDateFormat formater = new SimpleDateFormat("hh:mm:ss");
+      		    System.out.println(formater.format(data.getFin()));
+      		    
 				WriteXML();
 			} catch (TransformerException e) {
 				// TODO Auto-generated catch block
@@ -110,8 +128,21 @@ public class Engine implements EngineService, RequireDataService{
   			Platform.exit();  		
   		}
     	 
-  		int ii=gen.nextInt(100);
-        if (ii<=data.getLevel().invoc && data.getLevel().nbpop<data.getLevel().nbEnemy) {
+    	 
+ 		  d1 = format.format(balloonStartClock);
+ 		  d2 = format.format(new Date());
+ 		  
+ 		// Get msec from each, and subtract.
+ 		diff = 0;
+		try {
+			diff = format.parse(d2).getTime() - format.parse(d1).getTime();
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	 
+        if (((double) diff>=(data.getLevel().invoc *1000)&& data.getLevel().nbpop<data.getLevel().nbEnemy)||data.getLevel().nbpop==0) {
+        	balloonStartClock=new Date();
         	data.setLevelnbpop( data.getLevel().nbpop+1);
         	spawnEnemy();
         }
@@ -219,7 +250,7 @@ public class Engine implements EngineService, RequireDataService{
     if (c==User.COMMAND.DOWN) moveDown=true;
   }
   
-	private boolean collisionBulletEnemy(BulletService b) {
+	public boolean collisionBulletEnemy(BulletService b) {
 		
 		Rectangle rect2 = new Rectangle((int)b.getBulletPosition().x - 20,(int) b.getBulletPosition().y - 20, 20, 20);
 		
@@ -238,11 +269,11 @@ public class Engine implements EngineService, RequireDataService{
 		return false;
 	}
 
-	private void Fire(BulletService b) {
+	public void Fire(BulletService b) {
 		b.setBulletPosition(new Position(b.getBulletPosition().x,b.getBulletPosition().y- HardCodedParameters.bulletStep));
 	}
 	
-	private void spawnBullet() {
+	public void spawnBullet() {
 	    int x=(int) data.getChildPosition().x-10;
 	    int y=(int)data.getChildPosition().y-(HardCodedParameters.ChildHeight/2)-25;
 	    data.addBullet(new Position(x,y));
@@ -278,7 +309,7 @@ public class Engine implements EngineService, RequireDataService{
 	    data.setChildPosition(new Position(data.getChildPosition().x+ChildVX,data.getChildPosition().y+ChildVY));
   }
 
-  private void spawnEnemy(){
+  public void spawnEnemy(){
 	    int x=0;
 	    int y=0;
 	    boolean cont=true;
@@ -406,6 +437,38 @@ public class Engine implements EngineService, RequireDataService{
 	        nb++;
 	        nbparties.setTextContent(Integer.toString(nb));
 	        
+	        
+	        
+	        //Temps total
+	        
+      		// Custom date format
+    		  SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss"); 
+
+    		  String d1 = format.format(data.getDebut());
+    		  String d2 = format.format(data.getFin());
+    		  
+    		// Get msec from each, and subtract.
+    		long diff = format.parse(d2).getTime() - format.parse(d1).getTime();
+    		long diffSeconds = diff / 1000;
+    		
+	        parties = nodes.item(3);
+	        
+	        listesparties = parties.getChildNodes();
+	        Node tts = listesparties.item(3);
+
+	        int tempst = Integer.parseInt(tts.getTextContent()) + (int) diffSeconds;
+	        tts.setTextContent(Integer.toString(tempst));
+	        
+	        
+	        //Temps moyen
+	        parties = nodes.item(3);
+	        
+	        listesparties = parties.getChildNodes();
+	        Node tm = listesparties.item(5);
+
+	        int tempsm = Integer.parseInt(tts.getTextContent()) / Integer.parseInt(nbparties.getTextContent());
+	        tm.setTextContent(Integer.toString(tempsm));
+	        
 	        //TOP SCORE
 	        Node classement = nodes.item(1);
 	        
@@ -447,11 +510,10 @@ public class Engine implements EngineService, RequireDataService{
 	        e.printStackTrace();
 	     } catch (IOException e) {
 	        e.printStackTrace();
-	     }
+	     } catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		} 
-	
-  private boolean collisionChildEnemys(){
-    for (EnemyService e:data.getEnemy()) if (collisionChildEnemy(e)) return true; return false;
-  }
   
 }

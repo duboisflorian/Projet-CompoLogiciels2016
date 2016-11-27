@@ -12,5 +12,5 @@ public interface EnemyService{
 	  public void setDx(int dx);
 	  public void setDy(int dy);
 	int getHealth();
-	void setHealth(int health); 
+	void setHealth(int health);
 }

@@ -11,6 +11,9 @@ import tools.Sound;
 import tools.Sound.SOUND;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import data.Child;
 
 public interface WriteService {
   public void setChildPosition(Position p);
@@ -31,4 +34,7 @@ public interface WriteService {
   public void SnailPick(boolean b);
 void setSnailDirection(int i);
 void setHighscore(int highscore);
+void setFin(Date fin);
+void setDebut(Date debut);
+void setChild(Child c);
 }

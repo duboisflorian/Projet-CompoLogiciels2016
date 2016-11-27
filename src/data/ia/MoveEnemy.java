@@ -14,21 +14,26 @@ public class MoveEnemy implements EnemyService{
 	  private Image enemy_picture;
 	  private Random gen=new Random();
 	  private int dx,dy,health;
+	  public static int r=0,g=0,b=0,y=0;
 
 	  public MoveEnemy(Position p,int h){ 
 		    
 			int c=gen.nextInt(4);
 	        if (c==0) {
 	        	enemy_picture = new Image("file:src/images/ballon_red.png");
+	        	r++;
 	        } 
 	        if (c==1) {
 	        	enemy_picture = new Image("file:src/images/ballon_green.png");
+	        	g++;
 	        }  
 	        if (c==2) {
 	        	enemy_picture = new Image("file:src/images/ballon_blue.png");
+	        	b++;
 	        }  
 	        if (c==3) {
 	        	enemy_picture = new Image("file:src/images/ballon_yellow.png");
+	        	y++;
 	        }  
 	      
 		  position=p; 
@@ -82,5 +87,6 @@ public class MoveEnemy implements EnemyService{
 	public void setHealth(int health) {
 		this.health = health;
 	}
+	
 	
 }
