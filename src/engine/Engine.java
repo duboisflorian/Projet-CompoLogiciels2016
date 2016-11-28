@@ -113,6 +113,7 @@ public class Engine implements EngineService, RequireDataService{
     			}
     	  
     	 if(data.getChildHealth()<=HardCodedParameters.MinHealth)  {
+    		 JOptionPane.showMessageDialog(null,"Vous avez perdu !");
       		try {
       			data.setFin(new Date());
       		    SimpleDateFormat formater = new SimpleDateFormat("hh:mm:ss");
@@ -123,7 +124,7 @@ public class Engine implements EngineService, RequireDataService{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-      		JOptionPane.showMessageDialog(null,"Vous avez perdu !");
+      		
   			stop();
   			Platform.exit();  		
   		}
