@@ -123,7 +123,7 @@ public class Engine implements EngineService, RequireDataService{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-      		JOptionPane.showMessageDialog(null,"You are dead");
+      		JOptionPane.showMessageDialog(null,"Vous avez perdu !");
   			stop();
   			Platform.exit();  		
   		}
@@ -478,17 +478,35 @@ public class Engine implements EngineService, RequireDataService{
 	        Node numero3 = numeros.item(5);
 	        
 	        if(data.getChildScore()>Integer.parseInt(numero1.getChildNodes().item(3).getTextContent())){
+	        	JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	        	String nom = jop.showInputDialog(null, "Veuillez entrer votre pseudo", "Classement n 1 !", JOptionPane.QUESTION_MESSAGE);
+	        	
 		        numero3.getChildNodes().item(3).setTextContent(numero2.getChildNodes().item(3).getTextContent());
 		        numero2.getChildNodes().item(3).setTextContent(numero1.getChildNodes().item(3).getTextContent());
 		        numero1.getChildNodes().item(3).setTextContent(Integer.toString(data.getChildScore()));
+		        
+		        numero3.getChildNodes().item(1).setTextContent(numero2.getChildNodes().item(1).getTextContent());
+		        numero2.getChildNodes().item(1).setTextContent(numero1.getChildNodes().item(1).getTextContent());
+		        numero1.getChildNodes().item(1).setTextContent(nom);
 	        }
 	        else if(data.getChildScore()>Integer.parseInt(numero2.getChildNodes().item(3).getTextContent())){
+	        	JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	        	String nom = jop.showInputDialog(null, "Veuillez entrer votre pseudo", "Classement n 2 !", JOptionPane.QUESTION_MESSAGE);
+	        	
 		        numero3.getChildNodes().item(3).setTextContent(numero2.getChildNodes().item(3).getTextContent());
 		        numero2.getChildNodes().item(3).setTextContent(Integer.toString(data.getChildScore()));
+		        
+		        numero3.getChildNodes().item(1).setTextContent(numero2.getChildNodes().item(1).getTextContent());
+		        numero2.getChildNodes().item(1).setTextContent(nom);
 	        }
 	        
 	        else if(data.getChildScore()>Integer.parseInt(numero3.getChildNodes().item(3).getTextContent())){
+	        	JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
+	        	String nom = jop.showInputDialog(null, "Veuillez entrer votre pseudo", "Classement n 3 !", JOptionPane.QUESTION_MESSAGE);
+	        	
 		        numero3.getChildNodes().item(3).setTextContent(Integer.toString(data.getChildScore()));
+		        
+		        numero3.getChildNodes().item(1).setTextContent(nom);
 	        }
 	       
 	        //for output

@@ -2,21 +2,21 @@
 <jeu>
 	<classement>
 		<numero id="1">
-			<pseudo>flo</pseudo>
-			<score>98</score>
+			<pseudo>Tingting</pseudo>
+			<score>27</score>
 		</numero>
 		<numero id="2">
-			<pseudo>jabrane</pseudo>
-			<score>24</score>
+			<pseudo>flo</pseudo>
+			<score>20</score>
 		</numero>
 		<numero id="3">
-			<pseudo>Papiss</pseudo>
-			<score>19</score>
+			<pseudo>jabrane</pseudo>
+			<score>15</score>
 		</numero>
 	</classement>
 	<partie>
-		<nombrePartie>17</nombrePartie>
-		<tempsTotal>1677</tempsTotal>
-		<tempsMoyen>98</tempsMoyen>
+		<nombrePartie>18</nombrePartie>
+		<tempsTotal>1799</tempsTotal>
+		<tempsMoyen>99</tempsMoyen>
 	</partie>
 </jeu>
